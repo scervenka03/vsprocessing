@@ -1,71 +1,66 @@
-# vsprocessing README
+# VSProcessing
 
-This is the README for your extension "vsprocessing". After writing up a brief description, we recommend including the following sections.
+A small VS Code extension that runs the active JavaScript file inside a Webview "codebed" for visual/processing-style sketches.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- Open the active JavaScript file in a webview preview alongside the editor.
+- Loads the local `packages/codebed` bundle to provide drawing/shape helpers.
+- Simple, zero-configuration preview for Processing-style sketches written in JavaScript.
 
-For example if there is an image subfolder under your extension project workspace:
+## Commands
 
-\!\[feature X\]\(images/feature-x.png\)
+- `vsprocessing.runVSProcessing` — Open the VSProcessing Webview for the active JavaScript editor. The command requires a JavaScript file to be active; otherwise it shows an error.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Installation
 
-## Requirements
+You can install this extension from the VS Code Marketplace when published, or run it locally from source:
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+1. Clone the repository.
+2. Install dependencies:
 
-## Extension Settings
+```bash
+yarn install
+```
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+3. Build the workspace (compile TypeScript and bundle `packages/codebed`):
 
-For example:
+```bash
+yarn compile
+```
 
-This extension contributes the following settings:
+4. Open this folder in VS Code and press `F5` to start the extension in the Extension Development Host.
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+## Usage
 
-## Known Issues
+1. Open a JavaScript file containing your sketch or script.
+2. Run the command `VSProcessing: Run VSProcessing` (command id `vsprocessing.runVSProcessing`) from the Command Palette, or bind a keyboard shortcut to the command.
+3. A webview titled "VSProcessing Webview" will open beside the editor and run the active file's code together with the `codebed` helpers.
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+Notes:
+- The extension injects the active editor content into the webview as a `<script>` tag. The active editor must be a JavaScript file (language id `javascript`).
+- The webview loads `media/vsprocessing.html` from the extension and the `packages/codebed/dist/index.js` bundle.
 
-## Release Notes
+## Development
 
-Users appreciate release notes as you update your extension.
+- Source entry: [src/extension.ts](src/extension.ts#L1-L200)
+- Webview template: [media/vsprocessing.html](media/vsprocessing.html#L1)
+- Codebed package: [packages/codebed](packages/codebed)
 
-### 1.0.0
+Recommended tasks while developing:
 
-Initial release of ...
+```bash
+yarn install
+yarn compile
+# then press F5 in VS Code to run the extension host
+```
 
-### 1.0.1
+If you change files in `packages/codebed`, ensure its build output is available at `packages/codebed/dist/index.js` so the webview can load it.
 
-Fixed issue #.
+## Contributing
 
-### 1.1.0
+Contributions are welcome. Please open issues or pull requests with clear descriptions and reproduction steps.
 
-Added features X, Y, and Z.
+## License
 
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+This repository is public; add a LICENSE file to indicate the chosen license.
