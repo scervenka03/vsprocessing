@@ -1,0 +1,6 @@
+{
+	"name": "codebed",
+	"private": true,
+	"type": "module",
+	"main": "./dist/index.js"
+}
